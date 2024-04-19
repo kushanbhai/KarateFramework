@@ -1,24 +1,22 @@
-Feature: create user using POST api
+Feature: Update user using PUT api
 
 Background:
 	* url 'https://gorest.co.in'
 	* def requestPayload =
 	"""
 	{
-	  
-    "name": "Sanjay Mathur",
     "gender": "male",
-    "email": "sanmathur321@gmail.com",
-    "status": "active"
+    "email": "karate@gmail.com"
 	}
 	"""
-Scenario: create a user with given data
-Given path '/public/v2/users'
+Scenario: update a user with given data
+Given path '/public/v2/users/6853877'
 And request requestPayload
 And header Authorization = 'Bearer ' +tokenID
-When method post
-Then status 201
+When method put
+Then status 200
 And match $.id == '#present'
 And match $.name == '#present'
 And match $.name == 'Sanjay Mathur'
+And match $.gender == 'male'
 #And match $.email == 'sanmathur@gmail.com' 	
